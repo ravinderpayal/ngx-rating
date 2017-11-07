@@ -150,7 +150,8 @@ export class Rating implements OnInit, ControlValueAccessor, Validator {
 
     @Output()
     onLeave = new EventEmitter();
-
+    @Output()
+    change = new EventEmitter<boolean>();
     // -------------------------------------------------------------------------
     // Public properties
     // -------------------------------------------------------------------------
@@ -265,6 +266,7 @@ export class Rating implements OnInit, ControlValueAccessor, Validator {
         if (!this.readonly && !this.disabled && value >= 0 && value <= this.ratingRange.length) {
             const newValue = this.hoveredPercent ? (value - 1) + this.hoveredPercent / 100 : value;
             this.onChange(newValue);
+            this.change.emit(true);
             this.model = newValue;
         }
     }
